@@ -53,7 +53,7 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 ##  Sample output:
 ##  CUDA Clock sample
 ##  GPU Device 0: "Maxwell" with compute capability 5.3
+##  Average clocks/block = 3294.203125
 
-Average clocks/block = 3294.203125
 # Start XFCE desktop
 CMD ["startx"]
