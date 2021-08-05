@@ -1,6 +1,6 @@
 Sample Application that uses X11 on the Jetson Platform
 
-These samples are based on L4T 32.4.4. They showcase installing X11 and Gstreamer packages
+These samples are based on L4T 32.4.4/32.5.1. They showcase installing X11 and Gstreamer packages
 in a privileged container.
 
 Supported modules:
