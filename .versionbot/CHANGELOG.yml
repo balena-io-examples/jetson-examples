@@ -1,1 +1,22 @@
-[]
+- commits:
+    - subject: 'jetson-nano: Update to L4T 32.5'
+      hash: c00ecda1ec64bac3021c79f7c17378fc8cbcf49b
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+    - subject: Update Dockerfile
+      hash: 99fc1f148d7bbf5140f63737df0b429ca9b5fd2d
+      body: |
+        Average clocks needed to be commented out to build Dockerfile
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: dtischler
+      nested: []
+  version: 0.0.2
+  date: 2021-08-05T10:41:20.679Z
