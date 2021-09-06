@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update TX2 and Xavier NX samples to 32.5.1
+      hash: 2dc39df0e73f16da5de287e1999448ee54ab8bed
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.0.4
+  date: 2021-08-12T07:44:44.148Z
+- commits:
     - subject: 'jetson-xavier-agx: Update to 32.5.1'
       hash: 85a0ca7ea30d4b63a9711660868456d35ffa5719
       body: ''

@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.0.4
+## (2021-08-12)
+
+* Update TX2 and Xavier NX samples to 32.5.1 [Alexandru Costache]
+
 # v0.0.3
 ## (2021-08-05)
 
