@@ -3,10 +3,10 @@ FROM balenalib/jetson-xavier-ubuntu:bionic
 # Prevent apt-get prompting for input
 ENV DEBIAN_FRONTEND noninteractive
 
-# Update to 32.4.4 repository, only if base image uses an older one:
+# Update to 32.5 repository, only if base image uses an older one:
  RUN sed -i 's/r32.4 main/r32.5 main/g' /etc/apt/sources.list.d/nvidia.list
 
-# Download and install BSP binaries for L4T 32.4.4, as well as a few gstreamer packages for the purpose of running sample playback videos with gst-launch
+# Download and install BSP binaries for L4T 32.5, as well as a few gstreamer packages for the purpose of running sample playback videos with gst-launch
 RUN \
     apt-get update && apt-get install -y wget tar lbzip2 \
     nvidia-l4t-gstreamer \

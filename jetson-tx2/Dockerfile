@@ -3,8 +3,10 @@ FROM balenalib/jetson-tx2-ubuntu:bionic
 # Prevent apt-get prompting for input
 ENV DEBIAN_FRONTEND noninteractive
 
-# Update to 32.4.4 repository, only if base image uses an older one:
- RUN sed -i 's/r32.4 main/r32.5 main/g' /etc/apt/sources.list.d/nvidia.list
+# Update to 32.6 repository in case the base image is using 32.5.1
+# Note: As of now only the TX2 NX is based on L4T 32.6.1, and the TX2
+# will have it's OS image updated shortly/
+RUN sed -i 's/r32.5 main/r32.6 main/g' /etc/apt/sources.list.d/nvidia.list
 
 # Download and install BSP binaries for L4T 32.4.4, as well as a few gstreamer packages for the purpose of running sample playback videos with gst-launch
 RUN \
@@ -15,8 +17,8 @@ RUN \
     gstreamer1.0-plugins-bad \
     gstreamer1.0-plugins-ugly \
     gstreamer1.0-tools && \
-    cd /tmp/ && wget https://developer.nvidia.com/embedded/l4t/r32_release_v5.1/r32_release_v5.1/t186/tegra186_linux_r32.5.1_aarch64.tbz2 && \
-    tar xf tegra186_linux_r32.5.1_aarch64.tbz2 && rm tegra186_linux_r32.5.1_aarch64.tbz2 && \
+    cd /tmp/ && wget https://developer.nvidia.com/embedded/l4t/r32_release_v6.1/t186/jetson_linux_r32.6.1_aarch64.tbz2 && \
+    tar xf jetson_linux_r32.6.1_aarch64.tbz2 && rm jetson_linux_r32.6.1_aarch64.tbz2 && \
     cd Linux_for_Tegra && \
     sed -i 's/config.tbz2\"/config.tbz2\" --exclude=etc\/hosts --exclude=etc\/hostname/g' apply_binaries.sh && \
     sed -i 's/install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/#install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/g' nv_tegra/nv-apply-debs.sh && \
