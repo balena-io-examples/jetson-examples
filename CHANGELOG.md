@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.0.5
+## (2022-02-08)
+
+* Update L4T to 32.6.1 for the following devices: [Alexandru Costache]
+
 # v0.0.4
 ## (2021-08-12)
 
