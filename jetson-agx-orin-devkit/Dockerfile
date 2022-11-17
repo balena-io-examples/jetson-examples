@@ -1,22 +1,15 @@
-FROM balenalib/jetson-xavier-ubuntu:bionic
+# Cuda Examples can't be compiled with newer glibc, see
+# https://forums.developer.nvidia.com/t/cuda-11-5-samples-throw-multiple-error-attribute-malloc-does-not-take-arguments/192750
+FROM balenalib/jetson-agx-orin-devkit-ubuntu:focal
 
 # Prevent apt-get prompting for input
 ENV DEBIAN_FRONTEND noninteractive
 
-# Update to 32.5 repository, only if base image uses an older one:
- RUN sed -i 's/r32.6 main/r32.7 main/g' /etc/apt/sources.list.d/nvidia.list
-
-# Download and install BSP binaries for L4T 32.7, as well as a few gstreamer packages for the purpose of running sample playback videos with gst-launch
+# Download and install BSP binaries for L4T 35.1
 RUN \
-    apt-get update && apt-get install -y wget tar lbzip2 \
-    nvidia-l4t-gstreamer \
-    libgstreamer1.0-0 gstreamer1.0-plugins-base \
-    gobject-introspection gstreamer1.0-plugins-good \
-    gstreamer1.0-plugins-bad \
-    gstreamer1.0-plugins-ugly \
-    gstreamer1.0-tools && \
-    cd /tmp/ && wget https://developer.nvidia.com/embedded/l4t/r32_release_v7.1/t186/jetson_linux_r32.7.1_aarch64.tbz2 && \
-    tar xf jetson_linux_r32.7.1_aarch64.tbz2 && rm jetson_linux_r32.7.1_aarch64.tbz2 && \
+    apt-get update && apt-get install -y wget tar lbzip2 binutils xz-utils zstd && \
+    cd /tmp/ && wget https://developer.nvidia.com/embedded/l4t/r35_release_v1.0/release/jetson_linux_r35.1.0_aarch64.tbz2 && \
+    tar xf jetson_linux_r35.1.0_aarch64.tbz2 && \
     cd Linux_for_Tegra && \
     sed -i 's/config.tbz2\"/config.tbz2\" --exclude=etc\/hosts --exclude=etc\/hostname/g' apply_binaries.sh && \
     sed -i 's/install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/#install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/g' nv_tegra/nv-apply-debs.sh && \
@@ -25,7 +18,7 @@ RUN \
     rm -rf Linux_for_Tegra && \
     echo "/usr/lib/aarch64-linux-gnu/tegra" > /etc/ld.so.conf.d/nvidia-tegra.conf && ldconfig
 
-# Install X and xfce
+## Install X and xfce
 RUN \
   apt-get install -y --no-install-recommends \
   xserver-xorg-input-evdev \
@@ -37,7 +30,6 @@ RUN \
   xterm
 
 ENV LD_LIBRARY_PATH=/usr/lib/aarch64-linux-gnu/tegra
-ENV XFCE_PANEL_MIGRATE_DEFAULT=1
 ENV UDEV=1
 
 # Prevent screen from turning off
@@ -45,12 +37,9 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
   && echo "" >> /etc/X11/xinit/xserverrc \
   && echo 'exec /usr/bin/X -s 0 dpms' >> /etc/X11/xinit/xserverrc
 
-## Optional: Sample Gstreamer playback in webterminal:
-## $ export DISPLAY=0.0
-## $ gst-launch-1.0 filesrc location="file_example.mp4" ! qtdemux name=demux ! h264parse ! omxh264dec ! nvoverlaysink -e
-##
+
 ## Optional: Sample CUDA Clock sample run in webterminal:
-##  apt-get install nvidia-l4t-cuda nvidia-cuda cuda-samples-10-2 && cd /usr/local/cuda-10.2/samples/0_Simple/clock/ && make && ./clock
+##  apt-get update && apt-get install nvidia-l4t-cuda nvidia-cuda cuda-samples-11-4 && cd /usr/local/cuda-11.4/samples/0_Simple/clock/ && make && ./clock
 ##  Output:
 ##   CUDA Clock sample
 ##   GPU Device 0: "Xavier" with compute capability 7.2
@@ -58,5 +47,6 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 ##   Average clocks/block = 3171.421875
 
 # Start XFCE desktop
-CMD ["startx"]
+
+CMD ["startxfce4"]
 
