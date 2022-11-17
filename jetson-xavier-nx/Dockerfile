@@ -4,9 +4,9 @@ FROM balenalib/jetson-xavier-nx-devkit-emmc-ubuntu:bionic
 ENV DEBIAN_FRONTEND noninteractive
 
 # Update to 32.6 repository in case the base image is using 32.5.1
-RUN sed -i 's/r32.5 main/r32.6 main/g' /etc/apt/sources.list.d/nvidia.list
+RUN sed -i 's/r32.6 main/r32.7 main/g' /etc/apt/sources.list.d/nvidia.list
 
-# Download and install BSP binaries for L4T 32.6.1, as well as a few gstreamer packages for the purpose of running sample playback videos with gst-launch
+# Download and install BSP binaries for L4T 32.7.1, as well as a few gstreamer packages for the purpose of running sample playback videos with gst-launch
 RUN \
     apt-get update && apt-get install -y wget tar lbzip2 \
     nvidia-l4t-gstreamer \
@@ -15,8 +15,8 @@ RUN \
     gstreamer1.0-plugins-bad \
     gstreamer1.0-plugins-ugly \
     gstreamer1.0-tools && \
-    cd /tmp/ && wget https://developer.nvidia.com/embedded/l4t/r32_release_v6.1/t186/jetson_linux_r32.6.1_aarch64.tbz2 && \
-    tar xf jetson_linux_r32.6.1_aarch64.tbz2 && rm jetson_linux_r32.6.1_aarch64.tbz2 && \
+    cd /tmp/ && wget https://developer.nvidia.com/embedded/l4t/r32_release_v7.1/t186/jetson_linux_r32.7.1_aarch64.tbz2 && \
+    tar xf jetson_linux_r32.7.1_aarch64.tbz2 && rm jetson_linux_r32.7.1_aarch64.tbz2 && \
     cd Linux_for_Tegra && \
     sed -i 's/config.tbz2\"/config.tbz2\" --exclude=etc\/hosts --exclude=etc\/hostname/g' apply_binaries.sh && \
     sed -i 's/install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/#install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/g' nv_tegra/nv-apply-debs.sh && \
