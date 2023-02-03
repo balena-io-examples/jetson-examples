@@ -12,7 +12,10 @@ Supported modules:
 - Jetson Xavier AGX
 - Jetson Xavier NX (both SD-CARD and eMMC variants)
 
-These examples can also be used with device types that use third-party carrier boards
+These examples can also be used with device types that use third-party carrier boards.
+The jetson-tx2 example targets both the Jetson TX2 and Jetson TX2 NX modules.
+Similarly, the jetson-nano container is designed for the Nano SD, Nano eMMC and the Nano 4GB Devkit, while the Xavier NX example can be used
+for both the Xavier NX SD-CARD and the Xavier NX eMMC.
 
 Please see the notes regarding CUDA samples installation, compiling and running. These are not installed
 by default in the Dockerfiles in order to keep the image size as low as possible.
