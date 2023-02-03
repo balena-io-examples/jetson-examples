@@ -1,4 +1,28 @@
 - commits:
+    - subject: "README: Clarify which modules are targeted by each example"
+      hash: 4c4874d9e09cb04e7cb7459d2a13cf76c19f5162
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+    - subject: "jetson-nano: Update example to L4T 32.7.2"
+      hash: 3847bee0cccc6de48063469b5d36d55332101843
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.0.6
+  title: ""
+  date: 2023-02-03T10:45:52.509Z
+- commits:
     - subject: "Update L4T to 32.6.1 for the following devices:"
       hash: 13c5672ddcd2a558ba77561e414d3b9381457bf5
       body: |

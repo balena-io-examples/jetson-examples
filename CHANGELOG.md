@@ -4,6 +4,12 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.0.6
+## (2023-02-03)
+
+* README: Clarify which modules are targeted by each example [Alexandru Costache]
+* jetson-nano: Update example to L4T 32.7.2 [Alexandru Costache]
+
 # v0.0.5
 ## (2022-02-08)
 
