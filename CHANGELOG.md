@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.0.7
+## (2023-04-07)
+
+* jetson-orin-nx: Add sample Dockerfile on L4T 35.2.1 [Alexandru Costache]
+
 # v0.0.6
 ## (2023-02-03)
 

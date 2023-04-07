@@ -1,4 +1,18 @@
 - commits:
+    - subject: "jetson-orin-nx: Add sample Dockerfile on L4T 35.2.1"
+      hash: 5b51fe9ff8023a06f4f64ddf3df3d36fce7b474d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.0.7
+  title: ""
+  date: 2023-04-07T14:23:59.575Z
+- commits:
     - subject: "README: Clarify which modules are targeted by each example"
       hash: 4c4874d9e09cb04e7cb7459d2a13cf76c19f5162
       body: ""
