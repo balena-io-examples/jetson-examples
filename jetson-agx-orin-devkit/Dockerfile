@@ -5,11 +5,11 @@ FROM balenalib/jetson-agx-orin-devkit-ubuntu:focal
 # Prevent apt-get prompting for input
 ENV DEBIAN_FRONTEND noninteractive
 
-# Download and install BSP binaries for L4T 35.1
+# Download and install BSP binaries for L4T 35.2.1
 RUN \
     apt-get update && apt-get install -y wget tar lbzip2 binutils xz-utils zstd && \
-    cd /tmp/ && wget https://developer.nvidia.com/embedded/l4t/r35_release_v1.0/release/jetson_linux_r35.1.0_aarch64.tbz2 && \
-    tar xf jetson_linux_r35.1.0_aarch64.tbz2 && \
+    cd /tmp/ && wget https://developer.nvidia.com/downloads/jetson-linux-r3521-aarch64tbz2 -O jetson_linux_r35.2.1_aarch64.tbz2 && \
+    tar xf jetson_linux_r35.2.1_aarch64.tbz2 && \
     cd Linux_for_Tegra && \
     sed -i 's/config.tbz2\"/config.tbz2\" --exclude=etc\/hosts --exclude=etc\/hostname/g' apply_binaries.sh && \
     sed -i 's/install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/#install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/g' nv_tegra/nv-apply-debs.sh && \
