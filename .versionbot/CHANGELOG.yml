@@ -1,4 +1,18 @@
 - commits:
+    - subject: Update Dockerfile for AGX Orin to L4T 35.2.1
+      hash: 2062d5dac3d5b2322d7e2d3073d060308e5aa6e3
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.0.8
+  title: ""
+  date: 2023-05-05T08:30:29.340Z
+- commits:
     - subject: "jetson-orin-nx: Add sample Dockerfile on L4T 35.2.1"
       hash: 5b51fe9ff8023a06f4f64ddf3df3d36fce7b474d
       body: ""
