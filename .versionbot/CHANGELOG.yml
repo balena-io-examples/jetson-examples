@@ -1,4 +1,18 @@
 - commits:
+    - subject: Add Jetson Orin Nano example
+      hash: 0333f12d7d59c868a16b38e9fd248b6ba234b116
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.0.9
+  title: ""
+  date: 2023-06-29T14:25:25.359Z
+- commits:
     - subject: Update Dockerfile for AGX Orin to L4T 35.2.1
       hash: 2062d5dac3d5b2322d7e2d3073d060308e5aa6e3
       body: ""

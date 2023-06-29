@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.0.9
+## (2023-06-29)
+
+* Add Jetson Orin Nano example [Alexandru Costache]
+
 # v0.0.8
 ## (2023-05-05)
 
