@@ -1,6 +1,6 @@
 Sample Application that uses X11 on the Jetson Platform
 
-These samples are based on L4T 32.7.1/32.7.2/35.1/35.2.1 and they showcase installing X11 and Gstreamer packages in a privileged container.
+These samples are based on L4T 32.7.1/32.7.2/35.1/35.2.1/35.3.1 and they showcase installing X11 and Gstreamer packages in a privileged container.
 
 Supported modules:
 
@@ -11,6 +11,7 @@ Supported modules:
 - Jetson Xavier AGX
 - Jetson Xavier NX (both SD-CARD and eMMC variants)
 - Jetson Orin NX in Xavier NX Devkit NVME
+- Jetson Orin Nano 8GB (SD) Devkit NVME
 
 These examples can also be used with device types that use third-party carrier boards.
 The jetson-tx2 example targets both the Jetson TX2 and Jetson TX2 NX modules.
