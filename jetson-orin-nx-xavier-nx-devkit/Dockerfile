@@ -3,19 +3,19 @@
 
 # AGX Orin and Orin NX use the same T234 platform, therefore base images can be used
 # interchangeably as long as nvidia.list contains the right apt repositoy
-FROM balenalib/jetson-agx-orin-devkit-ubuntu:focal
+FROM balenalib/jetson-orin-nx-xavier-nx-devkit-ubuntu:focal
 
 # Prevent apt-get prompting for input
 ENV DEBIAN_FRONTEND noninteractive
 
-# Update repository from 35.1 to 35.2 if necessary
-RUN sed -i 's/r35.1 main/r35.2 main/g' /etc/apt/sources.list.d/nvidia.list
+# Update repository from 35.2 to 35.3 if necessary
+RUN sed -i 's/r35.2 main/r35.3 main/g' /etc/apt/sources.list.d/nvidia.list
 
-# Download and install BSP binaries for L4T 35.1
+# Download and install BSP binaries for L4T 35.3.1
 RUN \
     apt-get update && apt-get install -y wget tar lbzip2 binutils xz-utils zstd && \
-    cd /tmp/ && wget https://developer.nvidia.com/downloads/jetson-linux-r3521-aarch64tbz2 -O jetson-linux-r3521-aarch64.tbz2 && \
-    tar xf jetson-linux-r3521-aarch64.tbz2 && \
+    cd /tmp/ && wget https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v3.1/release/jetson_linux_r35.3.1_aarch64.tbz2 && \
+    tar xf jetson_linux_r35.3.1_aarch64.tbz2 && \
     cd Linux_for_Tegra && \
     sed -i 's/config.tbz2\"/config.tbz2\" --exclude=etc\/hosts --exclude=etc\/hostname/g' apply_binaries.sh && \
     sed -i 's/install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/#install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/g' nv_tegra/nv-apply-debs.sh && \
