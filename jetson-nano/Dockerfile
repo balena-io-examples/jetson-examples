@@ -13,14 +13,14 @@ RUN apt-get update && apt-get install -y wget tar lbzip2 \
     gstreamer1.0-plugins-bad \
     gstreamer1.0-plugins-ugly \
     gstreamer1.0-tools && \
-    wget https://developer.nvidia.com/embedded/l4t/r32_release_v7.2/t210/jetson-210_linux_r32.7.2_aarch64.tbz2 && \
-    tar xf jetson-210_linux_r32.7.2_aarch64.tbz2 && \
+    wget https://developer.nvidia.com/downloads/remetpack-463r32releasev73t210jetson-210linur3273aarch64tbz2 -O jetson-210_linux_r32.7.3_aarch64.tbz2  && \
+    tar xf jetson-210_linux_r32.7.3_aarch64.tbz2 && \
     cd Linux_for_Tegra && \
     sed -i 's/config.tbz2\"/config.tbz2\" --exclude=etc\/hosts --exclude=etc\/hostname/g' apply_binaries.sh && \
     sed -i 's/install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/#install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/g' nv_tegra/nv-apply-debs.sh && \
     sed -i 's/chroot . \//  /g' nv_tegra/nv-apply-debs.sh && \
     ./apply_binaries.sh -r / --target-overlay && cd .. \
-    rm -rf jetson-210_linux_r32.7.2_aarch64.tbz2 && \
+    rm -rf jetson-210_linux_r32.7.3_aarch64.tbz2 && \
     rm -rf Linux_for_Tegra && \
     echo "/usr/lib/aarch64-linux-gnu/tegra" > /etc/ld.so.conf.d/nvidia-tegra.conf && ldconfig
 
