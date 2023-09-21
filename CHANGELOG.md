@@ -4,6 +4,14 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.0.10
+## (2023-09-21)
+
+* github: update flowzone.yml [Alexandru Costache]
+* Update Xavier NX to L4T 32.7.3 [Alexandru Costache]
+* jetson-nano: Update Dockerfile for L4T 32.7.3 [Alexandru Costache]
+* jetson-orin-nx-xavier-nx-devkit: update example to 35.3.1 [Alexandru Costache]
+
 # v0.0.9
 ## (2023-06-29)
 

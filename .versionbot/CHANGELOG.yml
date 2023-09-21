@@ -1,4 +1,48 @@
 - commits:
+    - subject: "github: update flowzone.yml"
+      hash: 92c358bfd20a586ef22028075556154449864bb1
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+    - subject: Update Xavier NX to L4T 32.7.3
+      hash: 09e918c807b092c52fe438001cbb2d9d289927df
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+    - subject: "jetson-nano: Update Dockerfile for L4T 32.7.3"
+      hash: d9131f8dcefd075ff4659e267fc8bd2969e99e7d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+    - subject: "jetson-orin-nx-xavier-nx-devkit: update example to 35.3.1"
+      hash: 34960b0368200d7c6f49f407097bc20bcf16f43e
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.0.10
+  title: ""
+  date: 2023-09-21T13:08:56.220Z
+- commits:
     - subject: Add Jetson Orin Nano example
       hash: 0333f12d7d59c868a16b38e9fd248b6ba234b116
       body: ""
