@@ -1,15 +1,23 @@
 # Cuda Examples can't be compiled with newer glibc, see
 # https://forums.developer.nvidia.com/t/cuda-11-5-samples-throw-multiple-error-attribute-malloc-does-not-take-arguments/192750
+
+# AGX Orin, Orin NX and Orin Nano use the same T234 platform, therefore base images can be used
+# interchangeably as long as nvidia.list contains the right apt repositoy
 FROM balenalib/jetson-agx-orin-devkit-ubuntu:focal
 
 # Prevent apt-get prompting for input
 ENV DEBIAN_FRONTEND noninteractive
 
-# Download and install BSP binaries for L4T 35.2.1
+RUN echo "deb https://repo.download.nvidia.com/jetson/common r35.4 main" >  /etc/apt/sources.list.d/nvidia.list \
+       && echo "deb https://repo.download.nvidia.com/jetson/t234 r35.4 main" >>  /etc/apt/sources.list.d/nvidia.list \
+       && apt-key adv --fetch-key http://repo.download.nvidia.com/jetson/jetson-ota-public.asc \
+       && mkdir -p /opt/nvidia/l4t-packages/ && touch /opt/nvidia/l4t-packages/.nv-l4t-disable-boot-fw-update-in-preinstall
+
+# Download and install BSP binaries for L4T 35.4.1
 RUN \
     apt-get update && apt-get install -y wget tar lbzip2 binutils xz-utils zstd && \
-    cd /tmp/ && wget https://developer.nvidia.com/downloads/jetson-linux-r3521-aarch64tbz2 -O jetson_linux_r35.2.1_aarch64.tbz2 && \
-    tar xf jetson_linux_r35.2.1_aarch64.tbz2 && \
+    cd /tmp/ && wget https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v4.1/release/jetson_linux_r35.4.1_aarch64.tbz2 && \
+    tar xf jetson_linux_r35.4.1_aarch64.tbz2 && \
     cd Linux_for_Tegra && \
     sed -i 's/config.tbz2\"/config.tbz2\" --exclude=etc\/hosts --exclude=etc\/hostname/g' apply_binaries.sh && \
     sed -i 's/install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/#install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/g' nv_tegra/nv-apply-debs.sh && \
@@ -40,13 +48,20 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 
 ## Optional: Sample CUDA Clock sample run in webterminal:
 ##  apt-get update && apt-get install nvidia-l4t-cuda nvidia-cuda cuda-samples-11-4 && cd /usr/local/cuda-11.4/samples/0_Simple/clock/ && make && ./clock
-##  Output:
-##   CUDA Clock sample
-##   GPU Device 0: "Xavier" with compute capability 7.2
+##  Example Output:
 ##
-##   Average clocks/block = 3171.421875
+## ./simpleTexture
+## simpleTexture starting...
+## GPU Device 0: "Ampere" with compute capability 8.7
+##
+## ...
+## Processing time: 0.486000 (ms)
+## 539.39 Mpixels/sec
+## ..
+## simpleTexture completed, returned OK
 
 # Start XFCE desktop
 
 CMD ["startxfce4"]
+
 
