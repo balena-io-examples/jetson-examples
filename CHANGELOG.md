@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.0.11
+## (2023-12-05)
+
+* Update Jetson Orin NX, Orin Nano and AGX Orin examples for L4T 35.4.1 [Alexandru Costache]
+
 # v0.0.10
 ## (2023-09-21)
 

@@ -1,4 +1,27 @@
 - commits:
+    - subject: Update Jetson Orin NX, Orin Nano and AGX Orin examples for L4T 35.4.1
+      hash: af119ef1034c428e3680123f97a26ea63d77cde8
+      body: |
+        Since all three are based on the same T234 platform,
+        we can use the same examples for all of them on L4T 35.4.1
+
+        Tested on AGX Orin Devkit:
+        - xfce displayed on screen using:
+          - DisplayPort cable
+          - DisplayPort to HDMI adapter
+
+        - container GPU access works
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.0.11
+  title: ""
+  date: 2023-12-05T15:30:54.511Z
+- commits:
     - subject: "github: update flowzone.yml"
       hash: 92c358bfd20a586ef22028075556154449864bb1
       body: ""
