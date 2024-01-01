@@ -45,6 +45,13 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
   && echo "" >> /etc/X11/xinit/xserverrc \
   && echo 'exec /usr/bin/X -s 0 dpms' >> /etc/X11/xinit/xserverrc
 
+## If any apt packages install mesa-egl, it will overwrite the tegra-egl
+## symlink and ld path, so the following command will ensure tegra-egl remains
+## available:
+# RUN \
+#   echo "/usr/lib/aarch64-linux-gnu/tegra\n/usr/lib/aarch64-linux-gnu/tegra-egl" \
+#   > /etc/ld.so.conf.d/000-nvidia-tegra-egl.conf \
+#   && ldconfig
 
 ## Optional: Sample CUDA Clock sample run in webterminal:
 ##  apt-get update && apt-get install nvidia-l4t-cuda nvidia-cuda cuda-samples-11-4 && cd /usr/local/cuda-11.4/samples/0_Simple/clock/ && make && ./clock
