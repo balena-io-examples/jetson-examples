@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.0.12
+## (2024-01-02)
+
+* Add note for tegra-egl symlink if mesa-egl is installed [Christina Ying Wang]
+
 # v0.0.11
 ## (2023-12-05)
 

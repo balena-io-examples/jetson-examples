@@ -1,4 +1,18 @@
 - commits:
+    - subject: Add note for tegra-egl symlink if mesa-egl is installed
+      hash: 736823e7039f202c3b4e7b685711e262d021150b
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Christina Ying Wang <christina@balena.io>
+        signed-off-by: Christina Ying Wang <christina@balena.io>
+      author: Christina Ying Wang
+      nested: []
+  version: 0.0.12
+  title: ""
+  date: 2024-01-02T08:52:24.718Z
+- commits:
     - subject: Update Jetson Orin NX, Orin Nano and AGX Orin examples for L4T 35.4.1
       hash: af119ef1034c428e3680123f97a26ea63d77cde8
       body: |
