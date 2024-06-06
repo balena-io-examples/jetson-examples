@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.0.13
+## (2024-06-06)
+
+* Update Jetson Orin examples to L4T 35.5.0 [Alexandru Costache]
+
 # v0.0.12
 ## (2024-01-02)
 

@@ -1,4 +1,21 @@
 - commits:
+    - subject: Update Jetson Orin examples to L4T 35.5.0
+      hash: 533f918697173959961d52daa01cd99d698ddc1f
+      body: |
+        OS images running L4T 35.5.0 are available starting
+        with balenaOS v5.3.10+rev1 for AGX Orin 32GB, Orin NX,
+        and Orin Nano modules.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.0.13
+  title: ""
+  date: 2024-06-06T14:56:11.022Z
+- commits:
     - subject: Add note for tegra-egl symlink if mesa-egl is installed
       hash: 736823e7039f202c3b4e7b685711e262d021150b
       body: ""
