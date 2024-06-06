@@ -8,16 +8,16 @@ FROM balenalib/jetson-agx-orin-devkit-ubuntu:focal
 # Prevent apt-get prompting for input
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN echo "deb https://repo.download.nvidia.com/jetson/common r35.4 main" >  /etc/apt/sources.list.d/nvidia.list \
-       && echo "deb https://repo.download.nvidia.com/jetson/t234 r35.4 main" >>  /etc/apt/sources.list.d/nvidia.list \
+RUN echo "deb https://repo.download.nvidia.com/jetson/common r35.5 main" >  /etc/apt/sources.list.d/nvidia.list \
+       && echo "deb https://repo.download.nvidia.com/jetson/t234 r35.5 main" >>  /etc/apt/sources.list.d/nvidia.list \
        && apt-key adv --fetch-key http://repo.download.nvidia.com/jetson/jetson-ota-public.asc \
        && mkdir -p /opt/nvidia/l4t-packages/ && touch /opt/nvidia/l4t-packages/.nv-l4t-disable-boot-fw-update-in-preinstall
 
-# Download and install BSP binaries for L4T 35.4.1
+# Download and install BSP binaries for L4T 35.5.5
 RUN \
     apt-get update && apt-get install -y wget tar lbzip2 binutils xz-utils zstd && \
-    cd /tmp/ && wget https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v4.1/release/jetson_linux_r35.4.1_aarch64.tbz2 && \
-    tar xf jetson_linux_r35.4.1_aarch64.tbz2 && \
+    cd /tmp/ && wget https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v5.0/release/jetson_linux_r35.5.0_aarch64.tbz2 && \
+    tar xf jetson_linux_r35.5.0_aarch64.tbz2 && \
     cd Linux_for_Tegra && \
     sed -i 's/config.tbz2\"/config.tbz2\" --exclude=etc\/hosts --exclude=etc\/hostname/g' apply_binaries.sh && \
     sed -i 's/install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/#install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/g' nv_tegra/nv-apply-debs.sh && \
