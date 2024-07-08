@@ -1,4 +1,19 @@
 - commits:
+    - subject: Update Jetson Orin AGX, Orin NX and Orin Nano examples to L4T 36.3 -
+        Jetpack 6
+      hash: ca1c5cbb2dc2a960cda1fa6578f7ea9b413afe54
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.0.14
+  title: ""
+  date: 2024-07-08T12:58:43.932Z
+- commits:
     - subject: Update Jetson Orin examples to L4T 35.5.0
       hash: 533f918697173959961d52daa01cd99d698ddc1f
       body: |
