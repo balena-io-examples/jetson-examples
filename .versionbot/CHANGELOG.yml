@@ -1,4 +1,18 @@
 - commits:
+    - subject: "Dockerfile: refactor module unload"
+      hash: b54da5969be9b611dbdb66b96ae0ffe2d3fbc45f
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.0.15
+  title: ""
+  date: 2024-07-15T12:56:32.993Z
+- commits:
     - subject: Update Jetson Orin AGX, Orin NX and Orin Nano examples to L4T 36.3 -
         Jetpack 6
       hash: ca1c5cbb2dc2a960cda1fa6578f7ea9b413afe54

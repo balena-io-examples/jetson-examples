@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.0.15
+## (2024-07-15)
+
+* Dockerfile: refactor module unload [Alexandru Costache]
+
 # v0.0.14
 ## (2024-07-08)
 
