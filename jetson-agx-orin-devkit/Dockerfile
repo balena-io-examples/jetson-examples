@@ -52,7 +52,7 @@ ENV UDEV=1
 RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
    && echo "" >> /etc/X11/xinit/xserverrc \
    && echo 'exec /usr/bin/X -s 0 dpms' >> /etc/X11/xinit/xserverrc && \
-   echo 'rmmod nvidia_drm && rmmod nvidia_modeset && startxfce4' > /opt/startxfce.sh
+   echo 'modules=("nvidia_drm"); for module in "${modules[@]}"; do if lsmod | grep -q ${module} ; then echo "Found $module"; rmmod $module; fi; done; startxfce4;' > /opt/startxfce.sh
 
 ## If any apt packages install mesa-egl, it will overwrite the tegra-egl
 ## symlink and ld path, so the following command will ensure tegra-egl remains
