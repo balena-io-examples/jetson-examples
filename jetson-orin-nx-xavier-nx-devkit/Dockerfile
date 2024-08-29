@@ -63,7 +63,7 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 #   && ldconfig
 
 ## Optional: Sample CUDA Clock sample run in webterminal:
-##  apt-get update && apt-get install -y nvidia-l4t-cuda nvidia-cuda build-essential cuda-nvcc-12-2 && git clone https://github.com/NVIDIA/cuda-samples.git && cd cuda-samples/Samples/1_Utilities/deviceQuery && make && ./deviceQuery
+##  apt-get update && apt-get install -y -o Dpkg::Options::="--force-confdef" nvidia-l4t-cuda nvidia-cuda build-essential cuda-nvcc-12-2 && git clone https://github.com/NVIDIA/cuda-samples.git && cd cuda-samples/Samples/1_Utilities/deviceQuery && make && ./deviceQuery
 ##  Example Output:
 ##
 ##./deviceQuery Starting...
