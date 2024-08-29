@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.0.16
+## (2024-08-29)
+
+* Jetson Orin: Update CUDA installation example [Alexandru Costache]
+
 # v0.0.15
 ## (2024-07-15)
 

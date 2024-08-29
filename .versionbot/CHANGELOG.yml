@@ -1,4 +1,24 @@
 - commits:
+    - subject: "Jetson Orin: Update CUDA installation example"
+      hash: 57a363f655b0d0b4c9a4c8cdd4005a36b79484d2
+      body: |
+        ... to allow for installing packages without
+        prompting during docker builds.
+
+        Re-mounting / and /lib/firmware is necessary
+        if cuda is being installed manually from a container,
+        but is not needed during docker builds.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.0.16
+  title: ""
+  date: 2024-08-29T16:13:32.655Z
+- commits:
     - subject: "Dockerfile: refactor module unload"
       hash: b54da5969be9b611dbdb66b96ae0ffe2d3fbc45f
       body: ""
