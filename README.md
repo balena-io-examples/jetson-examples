@@ -1,6 +1,6 @@
 Sample Application that uses X11 on the Jetson Platform
 
-These samples are based on L4T 32.7.1/32.7.2/35.1/35.2.1/35.3.1/35.4.1/35.5.0/36.3 and they showcase installing X11 and Gstreamer packages in a privileged container.
+These samples are based on L4T 32.7.1/32.7.2/35.1/35.2.1/35.3.1/35.4.1/35.5.0/36.4.3 and they showcase installing X11 and Gstreamer packages in a privileged container.
 
 Supported modules:
 
@@ -11,9 +11,10 @@ Supported modules:
 - Jetson Xavier AGX
 - Jetson Xavier NX (both SD-CARD and eMMC variants)
 - Jetson AGX Orin Devkit
-- Jetson Orin NX in Xavier NX Devkit NVME
-- Jetson Orin Nano 8GB (SD) Devkit NVME
-- Jetson Orin Nano 4GB in Seeed J3010
+- Jetson Orin NX
+- Jetson Orin Nano
+
+The Dockerfile in the jetson-orin folder can be used for all Jetson AGX Orin, Orin NX and Orin Nano devices.
 
 These examples can also be used with device types that use third-party carrier boards.
 The jetson-tx2 example targets both the Jetson TX2 and Jetson TX2 NX modules.
