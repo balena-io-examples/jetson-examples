@@ -1,10 +1,20 @@
 # AGX Orin, Orin NX and Orin Nano use the same T234 platform, therefore base images can be used
 # interchangeably as long as nvidia.list contains the right apt repositoy
-FROM balenalib/jetson-orin-nano-devkit-nvme-ubuntu:jammy-20240401
+FROM ubuntu:jammy-20250404
 
-# Prevent apt-get prompting for input
-ENV DEBIAN_FRONTEND noninteractive
-
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  sudo \
+  ca-certificates \
+  findutils \
+  gnupg \
+  dirmngr \
+  inetutils-ping \
+  netbase \
+  curl \
+  udev \
+  kmod \
+  nano
+  
 RUN echo "deb https://repo.download.nvidia.com/jetson/common r36.4 main" >  /etc/apt/sources.list.d/nvidia.list \
        && echo "deb https://repo.download.nvidia.com/jetson/t234 r36.4 main" >>  /etc/apt/sources.list.d/nvidia.list \
        && apt-key adv --fetch-key http://repo.download.nvidia.com/jetson/jetson-ota-public.asc \
