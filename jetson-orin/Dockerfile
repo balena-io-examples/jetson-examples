@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   kmod \
   nano
   
+# Prevent apt-get prompting for input
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN echo "deb https://repo.download.nvidia.com/jetson/common r36.4 main" >  /etc/apt/sources.list.d/nvidia.list \
        && echo "deb https://repo.download.nvidia.com/jetson/t234 r36.4 main" >>  /etc/apt/sources.list.d/nvidia.list \
        && apt-key adv --fetch-key http://repo.download.nvidia.com/jetson/jetson-ota-public.asc \
@@ -56,7 +59,6 @@ RUN \
    xterm
 
 ENV LD_LIBRARY_PATH=/usr/lib/aarch64-linux-gnu/tegra
-ENV UDEV=1
 
 # Prevent screen from turning off
 RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
@@ -120,5 +122,7 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 ## deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 12.6, CUDA Runtime Version = 12.6, NumDevs = 1
 ## Result = PASS
 
-CMD ["/bin/bash", "/opt/startxfce.sh"]
+COPY entry.sh /usr/bin/entry.sh
+RUN chmod +x /usr/bin/entry.sh
 
+CMD ["/bin/bash", "/usr/bin/entry.sh"]
