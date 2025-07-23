@@ -63,8 +63,9 @@ ENV LD_LIBRARY_PATH=/usr/lib/aarch64-linux-gnu/tegra
 # Prevent screen from turning off
 RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
    && echo "" >> /etc/X11/xinit/xserverrc \
-   && echo 'exec /usr/bin/X -s 0 dpms' >> /etc/X11/xinit/xserverrc && \
-   echo 'modules=("tegra_drm" "nvidia_drm" "nvidia_modeset"); for module in "${modules[@]}"; do if lsmod | grep -q ${module} ; then echo "Found $module"; rmmod $module; fi; done; startxfce4 & sleep 5; modprobe tegra_drm; modprobe nvidia_drm; while [ 1 ]; do sleep 10; done; ' > /opt/startxfce.sh
+   && echo 'exec /usr/bin/X -s 0 dpms' >> /etc/X11/xinit/xserverrc
+
+
 
 ## If any apt packages install mesa-egl, it will overwrite the tegra-egl
 ## symlink and ld path, so the following command will ensure tegra-egl remains
@@ -122,6 +123,8 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 ## deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 12.6, CUDA Runtime Version = 12.6, NumDevs = 1
 ## Result = PASS
 
+COPY startxfce.sh /opt/startxfce.sh
+RUN chmod +x /opt/startxfce.sh
 COPY entry.sh /usr/bin/entry.sh
 RUN chmod +x /usr/bin/entry.sh
 

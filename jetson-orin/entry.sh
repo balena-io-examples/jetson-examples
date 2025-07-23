@@ -67,5 +67,4 @@ echo "Starting UDEV..."
 start_udev
 
 echo "Starting xfce script."
-chmod +x /opt/startxfce.sh
 exec /opt/startxfce.sh
