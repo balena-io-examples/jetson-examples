@@ -1,7 +1,34 @@
-FROM balenalib/jetson-nano-ubuntu:bionic
+FROM ubuntu:bionic-20230530
 
 # Prevent apt-get prompting for input
 ENV DEBIAN_FRONTEND noninteractive
+	
+# From balenalib base:
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  less \
+  kmod \
+  nano \
+  net-tools \
+  sudo \
+  ca-certificates \
+  gnupg \
+  dirmngr \
+  inetutils-ping \
+  netbase \
+  curl \
+  udev \
+  ifupdown \
+  i2c-tools \
+  usbutils \
+  $( \
+      if apt-cache show 'iproute' 2>/dev/null | grep -q '^Version:'; then \
+        echo 'iproute'; \
+      else \
+        echo 'iproute2'; \
+      fi \
+  ) \
+  && rm -rf /var/lib/apt/lists/* \
+  && c_rehash
 
 # Update to 32.7 repository in case the base image is using 32.6
 RUN sed -i 's/r32.6 main/r32.7 main/g' /etc/apt/sources.list.d/nvidia.list
@@ -55,5 +82,7 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 ##  GPU Device 0: "Maxwell" with compute capability 5.3
 ##  Average clocks/block = 3294.203125
 
-# Start XFCE desktop
-CMD ["startx"]
+COPY entry.sh /usr/bin/entry.sh
+
+# Start entry script
+CMD ["bash", "/usr/bin/entry.sh"]
