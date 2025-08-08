@@ -1,4 +1,45 @@
 - commits:
+    - subject: Re-work examples to drop balenalib usage
+      hash: cf8108965cb471a9cd501b64959b75efa76da656
+      body: |
+        Since base images are no longer provided,
+        we switch to using upstream Docker base images
+        on top of which we enable udev.
+      footer:
+        Change-type: minor
+        change-type: minor
+        Author: Alan Boris <alan@balena.io>
+        author: Alan Boris <alan@balena.io>
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+    - subject: "jetson-tx2: Update to L4T 32.7.6"
+      hash: e4d352fb1e65e3f1186db9516e74c38957e0d53d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+    - subject: Update Jetson Orin samples to Jetpack 6.2 - L4T 36.4.3
+      hash: 08e968ff090987422ce7264814d3652a08906164
+      body: |
+        The example for all Jetson Orin modules is now located in
+        a single directory - Jetson Orin.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.1.0
+  title: ""
+  date: 2025-08-08T13:42:54.865Z
+- commits:
     - subject: "Jetson Orin: Update CUDA installation example"
       hash: 57a363f655b0d0b4c9a4c8cdd4005a36b79484d2
       body: |

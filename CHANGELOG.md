@@ -4,6 +4,13 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.1.0
+## (2025-08-08)
+
+* Re-work examples to drop balenalib usage [Alexandru Costache]
+* jetson-tx2: Update to L4T 32.7.6 [Alexandru Costache]
+* Update Jetson Orin samples to Jetpack 6.2 - L4T 36.4.3 [Alexandru Costache]
+
 # v0.0.16
 ## (2024-08-29)
 
