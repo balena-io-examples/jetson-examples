@@ -1,7 +1,39 @@
-FROM balenalib/jetson-tx2-ubuntu:bionic
+FROM ubuntu:bionic-20230530
 
 # Prevent apt-get prompting for input
 ENV DEBIAN_FRONTEND noninteractive
+
+# From balenalib base:
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  less \
+  kmod \
+  nano \
+  net-tools \
+  sudo \
+  ca-certificates \
+  gnupg \
+  dirmngr \
+  inetutils-ping \
+  netbase \
+  curl \
+  udev \
+  ifupdown \
+  i2c-tools \
+  usbutils \
+  $( \
+      if apt-cache show 'iproute' 2>/dev/null | grep -q '^Version:'; then \
+        echo 'iproute'; \
+      else \
+        echo 'iproute2'; \
+      fi \
+  ) \
+  && rm -rf /var/lib/apt/lists/* \
+  && c_rehash
+
+RUN echo "deb https://repo.download.nvidia.com/jetson/common r32.7 main" >>  /etc/apt/sources.list.d/nvidia.list \
+	&& echo "deb https://repo.download.nvidia.com/jetson/t186 r32.7 main" >>  /etc/apt/sources.list.d/nvidia.list \
+	&& apt-key adv --fetch-key http://repo.download.nvidia.com/jetson/jetson-ota-public.asc \
+	&& mkdir -p /opt/nvidia/l4t-packages/ && touch /opt/nvidia/l4t-packages/.nv-l4t-disable-boot-fw-update-in-preinstall
 
 RUN sed -i 's/r32.6 main/r32.7 main/g' /etc/apt/sources.list.d/nvidia.list
 
@@ -51,6 +83,7 @@ RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
 ## Optional: Sample CUDA Clock sample run in webterminal:
 ##  apt-get install nvidia-l4t-cuda nvidia-cuda cuda-samples-10-2 && cd /usr/local/cuda-10.2/samples/0_Simple/clock/ && make && ./clock
 
-# Start XFCE desktop
-CMD ["startx"]
+COPY entry.sh /usr/bin/entry.sh
 
+# Start entry script
+CMD ["bash", "/usr/bin/entry.sh"]
