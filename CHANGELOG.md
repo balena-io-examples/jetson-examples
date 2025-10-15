@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.1.1
+## (2025-10-15)
+
+* Update startxfce.sh [Alexandru]
+
 # v0.1.0
 ## (2025-08-08)
 

@@ -1,4 +1,20 @@
 - commits:
+    - subject: Update startxfce.sh
+      hash: 43c1be3de7e11f1dc26518c3521fb72989a321e6
+      body: |
+        In this configuration we use dbus to stop the plymouth-start service
+        and start xfce with the drm modules loaded
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru
+      nested: []
+  version: 0.1.1
+  title: ""
+  date: 2025-10-15T17:40:26.202Z
+- commits:
     - subject: Re-work examples to drop balenalib usage
       hash: cf8108965cb471a9cd501b64959b75efa76da656
       body: |
