@@ -1,0 +1,4 @@
+From a container webterminal issue:
+
+export DISPLAY=:0
+LD_LIBRARY_PATH=/usr/lib/aarch64-linux-gnu/tegra-egl/ gst-launch-1.0 videotestsrc ! nvvidconv ! nvegltransform ! nveglglessink
