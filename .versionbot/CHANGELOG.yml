@@ -1,4 +1,19 @@
 - commits:
+    - subject: Switch from balenalib to official base image
+      hash: 36ffaf08670a207469a480d27f05392705444e64
+      body: |
+        ... in the gstreamer example
+      footer:
+        Signed-off-by: Alan <alan@balena.io>
+        signed-off-by: Alan <alan@balena.io>
+        Change-type: patch
+        change-type: patch
+      author: Alan Boris
+      nested: []
+  version: 0.1.2
+  title: ""
+  date: 2025-11-12T17:38:57.722Z
+- commits:
     - subject: Update startxfce.sh
       hash: 43c1be3de7e11f1dc26518c3521fb72989a321e6
       body: |

@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.1.2
+## (2025-11-12)
+
+* Switch from balenalib to official base image [Alan Boris]
+
 # v0.1.1
 ## (2025-10-15)
 
