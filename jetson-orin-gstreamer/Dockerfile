@@ -28,8 +28,8 @@ RUN echo "deb https://repo.download.nvidia.com/jetson/common r36.4 main" >  /etc
 # Download and install BSP binaries for L4T 36.4.3 - Jetpack 6.2
 RUN \
     apt-get update && apt-get install -y wget tar lbzip2 binutils xz-utils zstd qemu-user-static cpio git && \
-    cd /tmp/ && wget https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v4.3/release/Jetson_Linux_r36.4.3_aarch64.tbz2 && \
-    tar xf Jetson_Linux_r36.4.3_aarch64.tbz2 && \
+    cd /tmp/ && wget https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v4.4/release/Jetson_Linux_r36.4.4_aarch64.tbz2 && \
+    tar xf Jetson_Linux_r36.4.4_aarch64.tbz2 && \
     cd Linux_for_Tegra && \
     mkdir -p /tmp/Linux_for_Tegra/rootfs/boot/ && \
     mkdir -p /tmp/Linux_for_Tegra/rootfs/usr/bin && \
