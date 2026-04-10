@@ -1,4 +1,19 @@
 - commits:
+    - subject: "Jetson Orin: Update BSP to L4T 36.4.4"
+      hash: 1c25e926ca95a6bae44d0b25eefcf9ed372bc007
+      body: |
+        This can be used with balenaOS v6.12.3 and newer
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.1.3
+  title: ""
+  date: 2026-04-10T12:12:38.859Z
+- commits:
     - subject: Switch from balenalib to official base image
       hash: 36ffaf08670a207469a480d27f05392705444e64
       body: |

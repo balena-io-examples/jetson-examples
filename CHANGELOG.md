@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.1.3
+## (2026-04-10)
+
+* Jetson Orin: Update BSP to L4T 36.4.4 [Alexandru Costache]
+
 # v0.1.2
 ## (2025-11-12)
 
