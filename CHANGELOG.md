@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.1.4
+## (2026-06-05)
+
+* jetson-orin: Update Orin examples to use L4T 36.5.0 [Alexandru Costache]
+
 # v0.1.3
 ## (2026-04-10)
 
