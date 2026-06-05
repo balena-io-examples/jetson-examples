@@ -69,5 +69,5 @@ start_udev
 sleep 2
 
 echo "Starting xfce script."
-chmod +x /opt/startxfce.sh
-exec /opt/startxfce.sh
+chmod +x /opt/startx.sh
+exec /opt/startx.sh

@@ -64,7 +64,7 @@ RUN apt-get update && \
     apt-get install -y -o Dpkg::Options::="--force-confnew" libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev libgstreamer-plugins-bad1.0-dev && \
     apt-get install -y -o Dpkg::Options::="--force-confnew" nvidia-l4t-gstreamer && ldconfig && rm -rf .cache/gstreamer-1.0/
 
-COPY ./startxfce.sh /opt/startxfce.sh
+COPY ./startx.sh /opt/startx.sh
 COPY ./entry.sh /opt/entry.sh
 
 CMD ["/bin/bash", "/opt/entry.sh"]
