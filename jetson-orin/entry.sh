@@ -66,5 +66,4 @@ UDEV='on'
 echo "Starting UDEV..."
 start_udev
 
-echo "Starting xfce script."
-exec /opt/startxfce.sh
+/bin/bash ./startxfce.sh
