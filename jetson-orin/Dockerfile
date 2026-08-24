@@ -1,7 +1,6 @@
-# AGX Orin, Orin NX and Orin Nano use the same T234 platform, therefore base images can be used
-# interchangeably as long as nvidia.list contains the right apt repositoy
-FROM ubuntu:jammy-20250404
+FROM ubuntu:noble-20260410
 
+# Install extras and utilities
 RUN apt-get update && apt-get install -y --no-install-recommends \
   sudo \
   ca-certificates \
@@ -18,16 +17,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Prevent apt-get prompting for input
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN echo "deb https://repo.download.nvidia.com/jetson/common r36.5 main" >  /etc/apt/sources.list.d/nvidia.list \
-       && echo "deb https://repo.download.nvidia.com/jetson/t234 r36.5 main" >>  /etc/apt/sources.list.d/nvidia.list \
-       && apt-key adv --fetch-key http://repo.download.nvidia.com/jetson/jetson-ota-public.asc \
-       && mkdir -p /opt/nvidia/l4t-packages/ && touch /opt/nvidia/l4t-packages/.nv-l4t-disable-boot-fw-update-in-preinstall
-
-# Download and install BSP binaries for L4T 36.5.0 - Jetpack 6.2.2
+# Install BSP binaries for L4T 39.2.0 - Jetpack 7.2
 RUN \
-    apt-get update && apt-get install -y wget tar lbzip2 binutils xz-utils zstd qemu-user-static cpio git && \
-    cd /tmp/ && wget https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v5.0/release/Jetson_Linux_r36.5.0_aarch64.tbz2 && \
-    tar xf Jetson_Linux_r36.5.0_aarch64.tbz2 && \
+    cd /tmp/ && apt-get update && apt-get install -y wget tar lbzip2 binutils xz-utils zstd qemu-user-static cpio git vim && \
+    wget https://developer.nvidia.com/downloads/embedded/L4T/r39_Release_v2.0/release/Jetson_Linux_R39.2.0_aarch64.tbz2 && \
+    tar xf Jetson_Linux_R39.2.0_aarch64.tbz2 && \
     cd Linux_for_Tegra && \
     mkdir -p /tmp/Linux_for_Tegra/rootfs/boot/ && \
     mkdir -p /tmp/Linux_for_Tegra/rootfs/usr/bin && \
@@ -40,14 +34,25 @@ RUN \
     sed -i 's|^UpdateBackToBaseInitrd|#UpdateBackToBaseInitrd|g' tools/l4t_update_initrd.sh && \
     sed -i 's|cp /etc/resolv.conf|#cp /etc/resolv.conf|g' tools/l4t_update_initrd.sh && \
     sed -i 's|mv "${LDK_ROOTFS_DIR}/etc/resolv.conf"|cp "${LDK_ROOTFS_DIR}/etc/resolv.conf"|g' tools/l4t_update_initrd.sh && \
-    sed -i 's|	PrepareVirEnv|#PrepareVirEnv|g' tools/l4t_update_initrd.sh && \
-    sed -i 's/install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/#install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/g' nv_tegra/nv-apply-debs.sh && \
+    sed -i 's|  PrepareVirEnv|#PrepareVirEnv|g' tools/l4t_update_initrd.sh && \
+    sed -i 's/install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS__DIR}\/usr\/bin\/\"/#install --owner=root --group=root \"${QEMU_BIN}\" \"${L4T_ROOTFS_DIR}\/usr\/bin\/\"/g' nv_tegra/nv-apply-debs.sh && \
     sed -i 's/chroot . \//  /g' nv_tegra/nv-apply-debs.sh && \
-    cd /tmp/Linux_for_Tegra/ && ./apply_binaries.sh -r / --target-overlay && cd .. && \
-    rm -rf Linux_for_Tegra && \
+    rm -rf /etc/nv_tegra_release && \
+    sed -i 's/tar ${TAR_ROOTFS_DIR_OPTS}/tar --overwrite ${TAR_ROOTFS_DIR_OPTS}/g' ./apply_binaries.sh && \
+    rm -rf kernel/openrm/nvidia_l4t_kernel_openrm.tbz2 && \
+    ./apply_binaries.sh -r / --target-overlay && \
     echo "/usr/lib/aarch64-linux-gnu/tegra" > /etc/ld.so.conf.d/nvidia-tegra.conf && ldconfig
 
-# Install X and xfce
+RUN \
+     echo "deb https://repo.download.nvidia.com/jetson/common r39.2 main" > /etc/apt/sources.list.d/nvidia-l4t-apt-source.list && \
+     echo "deb https://repo.download.nvidia.com/jetson/som r39.2 main" >> /etc/apt/sources.list.d/nvidia-l4t-apt-source.list && \
+     echo "deb https://repo.download.nvidia.com/jetson/ffmpeg r39.2 main" >> /etc/apt/sources.list.d/nvidia-l4t-apt-source.list && \
+     apt-key adv --fetch-key http://repo.download.nvidia.com/jetson/jetson-ota-public.asc && \
+     mkdir -p /opt/nvidia/l4t-packages/ && touch /opt/nvidia/l4t-packages/.nv-l4t-disable-boot-fw-update-in-preinstall && \
+     cd /tmp//Linux_for_Tegra/ && ./nv_tegra/nv-apply-debs.sh --root / --openrm || true
+
+WORKDIR /usr/src
+
 RUN \
    apt-get install -y --no-install-recommends \
    xserver-xorg-input-evdev \
@@ -58,74 +63,98 @@ RUN \
    dbus-x11 \
    xterm
 
-ENV LD_LIBRARY_PATH=/usr/lib/aarch64-linux-gnu/tegra
+RUN mkdir -p /root/.config/xfce4/ && \
+    cp -n /etc/xdg/xfce4/xinitrc /root/.config/xfce4/xinitrc && \
+    sed -i '/#!\/bin\/sh/a \\n# Disable screen blanking \nxset s off\nxset s noblank\nxset -dpms' \
+    /root/.config/xfce4/xinitrc && \
+    chmod +x /root/.config/xfce4/xinitrc
 
-# Prevent screen from turning off
-RUN echo "#!/bin/bash" > /etc/X11/xinit/xserverrc \
-   && echo "" >> /etc/X11/xinit/xserverrc \
-   && echo 'exec /usr/bin/X -s 0 dpms' >> /etc/X11/xinit/xserverrc
+# Uncomment lines below to install CUDA toolkit and samples
+# Test GPU access by running /usr/src/cuda-samples/cpp/1_Utilities/deviceQuery/deviceQuery
+#RUN apt-get update && \
+#    apt-get install -y unzip cmake \
+#    pkg-config \
+#    build-essential cuda-toolkit-13-2 && \
+#    git clone https://github.com/NVIDIA/cuda-samples.git && cd cuda-samples/cpp/1_Utilities/deviceQuery && \
+#    cmake . -DCMAKE_CUDA_COMPILER=/usr/local/cuda-13.2/bin/nvcc -DCMAKE_CUDA_ARCHITECTURES=87 -DBUILD_TEGRA=True -DCMAKE_SYSROOT=/ -DCMAKE_C_COMPILER=/usr/bin/gcc  -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DGPU_TARGETS=all -DCMAKE_BUILD_TYPE=Release && \
+#    make
+#ENV PATH="/usr/local/cuda-13.2/bin${PATH:+:${PATH}}"
+#ENV LD_LIBRARY_PATH=/usr/lib/aarch64-linux-gnu/tegra:/opt/nvidia/l4t-gpu-libs/nvgpu
 
+# Example Orin Nano result:
+#
+#  /usr/src/cuda-samples/cpp/1_Utilities/deviceQuery/deviceQuery Starting...
+#
+# CUDA Device Query (Runtime API) version (CUDART static linking)
+#
+# Detected 1 CUDA Capable device(s)
+#
+# Device 0: "Orin"
+#  CUDA Driver Version / Runtime Version          13.2 / 13.2
+#  CUDA Capability Major/Minor version number:    8.7
+#  Total amount of global memory:                 7500 MBytes (7864061952 bytes)
+#  (008) Multiprocessors, (128) CUDA Cores/MP:    1024 CUDA Cores
+#  GPU Max Clock rate:                            1020 MHz (1.02 GHz)
+#  Memory Clock rate:                             918 Mhz
+#  Memory Bus Width:                              128-bit
+#  L2 Cache Size:                                 2097152 bytes
+#  Maximum Texture Dimension Size (x,y,z)         1D=(131072), 2D=(131072, 65536), 3D=(16384, 16384, 16384)
+#  Maximum Layered 1D Texture Size, (num) layers  1D=(32768), 2048 layers
+#  Maximum Layered 2D Texture Size, (num) layers  2D=(32768, 32768), 2048 layers
+#  Total amount of constant memory:               65536 bytes
+#  Total amount of shared memory per block:       49152 bytes
+#  Total shared memory per multiprocessor:        167936 bytes
+#  Total number of registers available per block: 65536
+#  Warp size:                                     32
+#  Maximum number of threads per multiprocessor:  1536
+#  Maximum number of threads per block:           1024
+#  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
+#  Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)
+#  Maximum memory pitch:                          2147483647 bytes
+#  Texture alignment:                             512 bytes
+#  Concurrent copy and kernel execution:          Yes with 2 copy engine(s)
+#  Run time limit on kernels:                     No
+#  Integrated GPU sharing Host Memory:            Yes
+#  Support host page-locked memory mapping:       Yes
+#  Alignment requirement for Surfaces:            Yes
+#  Device has ECC support:                        Disabled
+#  Device supports Unified Addressing (UVA):      Yes
+#  Device supports Managed Memory:                Yes
+#  Device supports Compute Preemption:            Yes
+#  Supports Cooperative Kernel Launch:            Yes
+#  Device PCI Domain ID / Bus ID / location ID:   0 / 0 / 0
+#  Compute Mode:
+#     < Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) >
+#
+# deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 13.2, CUDA Runtime Version = 13.2, NumDevs = 1
+# Result = PASS
 
+# Uncomment lines below to also install gstreamer packages
+#RUN \
+#    apt-get install -y -o Dpkg::Options::="--force-confnew" nvidia-l4t-multimedia nvidia-l4t-camera gstreamer1.0-tools gstreamer1.0-alsa \
+#    gstreamer1.0-plugins-base gstreamer1.0-plugins-good \
+#    gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly \
+#    gstreamer1.0-libav xfce4 libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev nvidia-l4t-gstreamer && \
+#    rm -rf ~/.cache/gstreamer-1.0/registry.*.bin && ldconfig
+#ENV LD_LIBRARY_PATH="/usr/lib/aarch64-linux-gnu/gstreamer-1.0${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
-## If any apt packages install mesa-egl, it will overwrite the tegra-egl
-## symlink and ld path, so the following command will ensure tegra-egl remains
-## available:
-# RUN \
-#   echo "/usr/lib/aarch64-linux-gnu/tegra\n/usr/lib/aarch64-linux-gnu/tegra-egl" \
-#   > /etc/ld.so.conf.d/000-nvidia-tegra-egl.conf \
-#   && ldconfig
+# To display video from a USB camera, run:
+#    export DISPLAY=:0
+#    gst-launch-1.0 v4l2src device=/dev/video0 io-mode=2 do-timestamp=true ! \
+#        queue max-size-buffers=1 leaky=downstream ! \
+#        image/jpeg, width=1280, height=720, framerate=30/1 ! \
+#        jpegparse ! \
+#        nvjpegdec ! \
+#        video/x-raw\(memory:NVMM\) ! \
+#        nvvidconv ! \
+#        "video/x-raw(memory:NVMM), format=NV12" ! \
+#        nv3dsink sync=false
 
-## Optional: Sample CUDA Clock sample run in webterminal:
-##  apt-get update && apt-get install -y -o Dpkg::Options::="--force-confdef" nvidia-l4t-cuda nvidia-cuda build-essential cuda-nvcc-12-6 && git clone https://github.com/NVIDIA/cuda-samples.git && cd cuda-samples && git checkout 7ce058b4796783b3b7ca8196c25d5f5b9c380ec4 && cd Samples/1_Utilities/deviceQuery && make && modprobe tegra_drm && ./deviceQuery
+# To run a gstreamer test pipeline, use the following lines:
+# export DISPLAY=:0
+# gst-launch-1.0 videotestsrc ! queue ! nvvidconv ! nvegltransform ! nveglglessink -e
 
-## CUDA Device Query (Runtime API) version (CUDART static linking)
-##
-## Detected 1 CUDA Capable device(s)
-##
-## Device 0: "Orin"
-##  CUDA Driver Version / Runtime Version          12.6 / 12.6
-##  CUDA Capability Major/Minor version number:    8.7
-##  Total amount of global memory:                 7623 MBytes (7993061376 bytes)
-##  (008) Multiprocessors, (128) CUDA Cores/MP:    1024 CUDA Cores
-##  GPU Max Clock rate:                            1020 MHz (1.02 GHz)
-##  Memory Clock rate:                             612 Mhz
-##  Memory Bus Width:                              128-bit
-##  L2 Cache Size:                                 2097152 bytes
-##  Maximum Texture Dimension Size (x,y,z)         1D=(131072), 2D=(131072, 65536), 3D=(16384, 16384, 16384)
-##  Maximum Layered 1D Texture Size, (num) layers  1D=(32768), 2048 layers
-##  Maximum Layered 2D Texture Size, (num) layers  2D=(32768, 32768), 2048 layers
-##  Total amount of constant memory:               65536 bytes
-##  Total amount of shared memory per block:       49152 bytes
-##  Total shared memory per multiprocessor:        167936 bytes
-##  Total number of registers available per block: 65536
-##  Warp size:                                     32
-##  Maximum number of threads per multiprocessor:  1536
-##  Maximum number of threads per block:           1024
-##  Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
-##  Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)
-##  Maximum memory pitch:                          2147483647 bytes
-##  Texture alignment:                             512 bytes
-##  Concurrent copy and kernel execution:          Yes with 2 copy engine(s)
-##  Run time limit on kernels:                     No
-##  Integrated GPU sharing Host Memory:            Yes
-##  Support host page-locked memory mapping:       Yes
-##  Alignment requirement for Surfaces:            Yes
-##  Device has ECC support:                        Disabled
-##  Device supports Unified Addressing (UVA):      Yes
-##  Device supports Managed Memory:                Yes
-##  Device supports Compute Preemption:            Yes
-##  Supports Cooperative Kernel Launch:            Yes
-##  Supports MultiDevice Co-op Kernel Launch:      Yes
-##  Device PCI Domain ID / Bus ID / location ID:   0 / 0 / 0
-##  Compute Mode:
-##     < Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) >
-##
-## deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 12.6, CUDA Runtime Version = 12.6, NumDevs = 1
-## Result = PASS
+COPY entry.sh .
+COPY startxfce.sh .
 
-COPY startxfce.sh /opt/startxfce.sh
-RUN chmod +x /opt/startxfce.sh
-COPY entry.sh /usr/bin/entry.sh
-RUN chmod +x /usr/bin/entry.sh
-
-CMD ["/bin/bash", "/usr/bin/entry.sh"]
+CMD ["/bin/bash", "/usr/src/entry.sh"]
