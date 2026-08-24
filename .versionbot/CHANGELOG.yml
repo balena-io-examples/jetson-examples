@@ -1,4 +1,18 @@
 - commits:
+    - subject: "jetson-orin: Update sample Dockerfile to Jetpack 7.2"
+      hash: ee08b9376679e4e3468e3441657f548e52a17cff
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.1.5
+  title: ""
+  date: 2026-08-24T16:52:24.016Z
+- commits:
     - subject: "jetson-orin: Update Orin examples to use L4T 36.5.0"
       hash: 20ae1439492c43f8d81e73e1285cc67d496b2a21
       body: ""
