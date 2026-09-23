@@ -1,4 +1,18 @@
 - commits:
+    - subject: "Jetson AGX Thor Devkit: Add XFCE, CUDA and Gstreamer sample Dockerfile"
+      hash: 478aa12df08a60d048e27e065d10d2169e14abbc
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alexandru Costache <alexandru@balena.io>
+        signed-off-by: Alexandru Costache <alexandru@balena.io>
+      author: Alexandru Costache
+      nested: []
+  version: 0.1.6
+  title: ""
+  date: 2026-09-23T09:12:37.358Z
+- commits:
     - subject: "jetson-orin: Update sample Dockerfile to Jetpack 7.2"
       hash: ee08b9376679e4e3468e3441657f548e52a17cff
       body: ""

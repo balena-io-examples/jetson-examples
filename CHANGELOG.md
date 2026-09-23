@@ -4,6 +4,11 @@ Change log
 # v0.0.2
 ## (2021-08-05)
 
+# v0.1.6
+## (2026-09-23)
+
+* Jetson AGX Thor Devkit: Add XFCE, CUDA and Gstreamer sample Dockerfile [Alexandru Costache]
+
 # v0.1.5
 ## (2026-08-24)
 
