@@ -30,6 +30,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && rm -rf /var/lib/apt/lists/* \
   && c_rehash
 
+# Distrust the roots chaining to the compromised eMudhra intermediates. Ubuntu 18.04
+# only ships the ca-certificates fix through Ubuntu Pro ESM (USN-8944-2), so remove
+# them here. See https://emudhra.we-have-a-problem.com/
+RUN sed -i \
+    -e 's|^mozilla/emSign_ECC_Root_CA_-_G3.crt|!&|' \
+    -e 's|^mozilla/Comodo_AAA_Services_root.crt|!&|' \
+    /etc/ca-certificates.conf \
+  && update-ca-certificates --fresh \
+  && openssl crl2pkcs7 -nocrl -certfile /etc/ssl/certs/ca-certificates.crt \
+     | openssl pkcs7 -print_certs -noout > /tmp/roots.txt \
+  && grep -qE 'CN ?= ?ISRG Root X1$' /tmp/roots.txt \
+  && ! grep -E 'CN ?= ?(AAA Certificate Services|emSign ECC Root CA - G3)$' /tmp/roots.txt \
+  && rm /tmp/roots.txt
+
 # Update to 32.5 repository, only if base image uses an older one:
  RUN sed -i 's/r32.6 main/r32.7 main/g' /etc/apt/sources.list.d/nvidia.list
 

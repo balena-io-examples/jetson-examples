@@ -1,6 +1,7 @@
 FROM ubuntu:noble-20260410
 
 # Install extras and utilities
+# Fail if ca-certificates predates the eMudhra CA distrust (noble fix: 20260816ubuntu0.24.04.1, USN-8944-1)
 RUN apt-get update && apt-get install -y --no-install-recommends \
   sudo \
   ca-certificates \
@@ -12,7 +13,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   curl \
   udev \
   kmod \
-  nano
+  nano && \
+  dpkg --compare-versions "$(dpkg-query -W -f='${Version}' ca-certificates)" ge 20260816ubuntu0.24.04.1
 
 # Prevent apt-get prompting for input
 ENV DEBIAN_FRONTEND noninteractive
