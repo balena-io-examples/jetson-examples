@@ -30,6 +30,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && rm -rf /var/lib/apt/lists/* \
   && c_rehash
 
+# Distrust the roots chaining to the compromised eMudhra intermediates. Ubuntu 18.04
+# only ships the ca-certificates fix through Ubuntu Pro ESM (USN-8944-2), so remove
+# them here. See https://emudhra.we-have-a-problem.com/
+RUN sed -i \
+    -e 's|^mozilla/emSign_ECC_Root_CA_-_G3.crt|!&|' \
+    -e 's|^mozilla/Comodo_AAA_Services_root.crt|!&|' \
+    /etc/ca-certificates.conf \
+  && update-ca-certificates --fresh \
+  && openssl crl2pkcs7 -nocrl -certfile /etc/ssl/certs/ca-certificates.crt \
+     | openssl pkcs7 -print_certs -noout > /tmp/roots.txt \
+  && grep -qE 'CN ?= ?ISRG Root X1$' /tmp/roots.txt \
+  && ! grep -E 'CN ?= ?(AAA Certificate Services|emSign ECC Root CA - G3)$' /tmp/roots.txt \
+  && rm /tmp/roots.txt
+
 RUN echo "deb https://repo.download.nvidia.com/jetson/common r32.7 main" >>  /etc/apt/sources.list.d/nvidia.list \
 	&& echo "deb https://repo.download.nvidia.com/jetson/t186 r32.7 main" >>  /etc/apt/sources.list.d/nvidia.list \
 	&& apt-key adv --fetch-key http://repo.download.nvidia.com/jetson/jetson-ota-public.asc \
